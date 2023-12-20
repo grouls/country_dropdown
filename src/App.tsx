@@ -10,24 +10,19 @@ export const App: FC = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        if (country) {
-          const response = await fetch(`${API_URL}/${country}`);
-          const json = await response.json();
-          setData(json);
-        }
-      } catch (e) {
-        console.log('Error:' + e);
+      if (country) {
+        const response = await fetch(`${API_URL}/${country}`);
+        const json = await response.json();
+        setData(json);
       }
-    };
+    }
     fetchData();
 
     return () => {};
   }, [country]);
 
-  const handleChange = (e) => {
-    setCountry(e.target.value);
-  };
+  const handleChange = (e) => setCountry(e.target.value);
+
   return (
     <div className="container">
       <input
