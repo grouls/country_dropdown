@@ -13,9 +13,14 @@ body {
   display: inline-block;
 }
 
+h1{
+  color:#c6c6c6
+}
+
 input {
   background-color: #44494f;
   color: #c6c6c6;
+  padding: 10px;
 }
 
 input::placeholder {
@@ -43,4 +48,10 @@ button {
   background-color: #44494f;
   color: #c6c6c6;
   cursor: pointer;
+  width: 100%;
+}
+
+button:hover{
+  background-color: #c6c6c6;
+  color: #44494f;
 }
