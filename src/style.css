@@ -6,13 +6,6 @@ body {
   background-color: #202227;
 }
 
-.container {
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  display: inline-block;
-}
-
 h1{
   color:#c6c6c6
 }
