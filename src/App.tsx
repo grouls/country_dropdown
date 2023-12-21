@@ -1,19 +1,10 @@
 import { FC, useEffect, useState } from 'react';
-
+import { ItemProps, noResults, loading } from './config';
 import './style.css';
 
 const API_URL = 'https://restcountries.com/v3.1/name';
 
-const noResults = {
-  name: {
-    common: 'No Results found.'
-  }
-}
-const loading = {
-  name: {
-    common: 'Loading...'
-  }
-}
+
 /*
   - Add validation, string only
   - Clear list whenever the user clears the input
@@ -26,15 +17,15 @@ const loading = {
 export const App: FC = () => {
   const [country, setCountry] = useState('');
   const [selection, setSelection] = useState('');
-  const [data, setData] = useState([]);
+  const [items, setItems] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       if (country) {
-        setData([loading]);
+        setItems([loading]);
         const response = await fetch(`${API_URL}/${country}`);
         const json = await response.json();
-        json.status !== 404 ? setData(json) : setData([noResults]);
+        json.status !== 404 ? setItems(json) : setItems([noResults]);
       }
     }
     fetchData();
@@ -43,15 +34,16 @@ export const App: FC = () => {
 
   const handleChange = (e) => {
     const input = e.target.value;
-    if(input === '') setData([])
+    if(input === '') setItems([])
     setCountry(input);
   };
   const handleClick = (e) => {
     const input = e.target.name;
     setSelection(input);
-    setData([])
+    setItems([])
     setCountry('')
   };
+
   return (
     <div className="container">
       <h1>{selection}</h1>
@@ -61,8 +53,8 @@ export const App: FC = () => {
         value={country}
         onChange={(e) => handleChange(e)}
       />
-      {data.length !== 0 && <ul>
-        {data.map(d => <li><button name={d.name.common} type='submit' onClick={(e) => handleClick(e)}>{d.name.common}</button></li>)}
+      {items.length !== 0 && <ul>
+        {items.map((item: ItemProps) => <li key={item.index}><button name={item.name.common} type='submit' onClick={(e) => handleClick(e)}>{item.name.common}</button></li>)}
       </ul>}
     </div>
   );
